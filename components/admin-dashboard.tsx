@@ -82,7 +82,6 @@ export function AdminDashboard({ onLogout }: AdminDashboardProps) {
 
      setSaving(true)
     try {
-      console.log("[SALVAR] Dados enviados:", editedData)
       const response = await fetch("/api/reforma", {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
@@ -91,15 +90,12 @@ export function AdminDashboard({ onLogout }: AdminDashboardProps) {
 
       if (response.ok) {
         const updated = await response.json()
-        console.log("[SALVAR] Dados recebidos:", updated)
         setData(updated)
         alert("Dados salvos com sucesso!")
       } else {
         const errorText = await response.text()
-        console.error("[SALVAR] Erro na resposta:", errorText)
       }
     } catch (error) {
-      console.error("Erro ao salvar:", error)
       alert("Erro ao salvar os dados")
     } finally {
       setSaving(false)
