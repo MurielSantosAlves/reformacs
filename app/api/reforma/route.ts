@@ -77,7 +77,7 @@ export async function PUT(request: NextRequest) {
         start_date: body.start_date,
         end_date: body.end_date,
         progress_percentage: body.progress_percentage,
-        total_invested: Number.parseFloat(body.total_invested) || 0,
+        total_invested: Number(body.totalInvested) || 0,
         updated_at: new Date().toISOString(),
       })
       .eq("id", DEFAULT_REFORMA_ID)
