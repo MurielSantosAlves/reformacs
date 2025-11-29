@@ -46,8 +46,6 @@ export function AdminDashboard({ onLogout }: AdminDashboardProps) {
   const [uploadingImage, setUploadingImage] = useState(false)
   const [uploadProgress, setUploadProgress] = useState("")
 
-  const supabaseRef = useRef(createClient())
-
   useEffect(() => {
     const fetchData = async () => {
       try {
