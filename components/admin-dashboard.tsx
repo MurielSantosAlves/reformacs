@@ -60,7 +60,7 @@ export function AdminDashboard({ onLogout }: AdminDashboardProps) {
             startDate: result.start_date || result.startDate,
             endDate: result.end_date || result.endDate,
             progressPercentage: result.progress_percentage || result.progressPercentage || 0,
-            totalInvested: Number(result.total_invested || result.totalInvested || 0),
+            totalInvested: typeof result.total_invested === "string" ? Number(result.total_invested) : (result.total_invested || result.totalInvested || 0),
             images: Array.isArray(result.images) ? result.images : [],
             phases: Array.isArray(result.phases) ? result.phases : [],
           }
@@ -80,8 +80,9 @@ export function AdminDashboard({ onLogout }: AdminDashboardProps) {
   const handleSave = async () => {
     if (!editedData) return
 
-    setSaving(true)
+     setSaving(true)
     try {
+      console.log("[SALVAR] Dados enviados:", editedData)
       const response = await fetch("/api/reforma", {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
@@ -90,8 +91,12 @@ export function AdminDashboard({ onLogout }: AdminDashboardProps) {
 
       if (response.ok) {
         const updated = await response.json()
+        console.log("[SALVAR] Dados recebidos:", updated)
         setData(updated)
         alert("Dados salvos com sucesso!")
+      } else {
+        const errorText = await response.text()
+        console.error("[SALVAR] Erro na resposta:", errorText)
       }
     } catch (error) {
       console.error("Erro ao salvar:", error)
