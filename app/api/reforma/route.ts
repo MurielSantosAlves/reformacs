@@ -74,8 +74,8 @@ export async function PUT(request: NextRequest) {
       .update({
         title: body.title,
         description: body.description,
-        start_date: body.start_date,
-        end_date: body.end_date,
+        start_date: body.startDate,
+        end_date: body.endDate,
         progress_percentage: body.progress_percentage,
         total_invested: Number(body.totalInvested) || 0,
         updated_at: new Date().toISOString(),
